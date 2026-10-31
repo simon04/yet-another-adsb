@@ -1,0 +1,32 @@
+// Frontend only: Node + pnpm + Playwright. Data comes from a public v2 API
+// (adsb.lol) or a remote feeder you point YAA_DATA_URL at.
+// For a local readsb/tar1090 sidecar, use the "feeder" configuration instead.
+{
+  "name": "yaa (frontend)",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:26-trixie",
+  // Harmless without SELinux; lets bind mounts work on Fedora/RHEL hosts.
+  "runArgs": ["--security-opt", "label=disable"],
+  "remoteUser": "node",
+  "containerEnv": {
+    "YAA_DATA_URL": "${localEnv:YAA_DATA_URL}"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "forwardPorts": [5173, 4173],
+  "portsAttributes": {
+    "5173": { "label": "Vite dev", "onAutoForward": "openBrowser" },
+    "4173": { "label": "Vite preview" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "vitest.explorer",
+        "ms-playwright.playwright",
+        // GLSL highlighting for the custom WebGL aircraft layer
+        "slevesque.shader"
+      ]
+    }
+  }
+}

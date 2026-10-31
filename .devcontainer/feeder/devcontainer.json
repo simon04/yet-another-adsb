@@ -1,0 +1,31 @@
+// Frontend + local readsb/tar1090 sidecar, so the app can read same-origin
+// /data/aircraft.json (via Vite proxy) and be compared side by side with tar1090.
+{
+  "name": "yaa (frontend + feeder)",
+  "dockerComposeFile": "compose.yaml",
+  "service": "app",
+  "runServices": ["app", "feeder"],
+  "workspaceFolder": "/workspaces/yet-another-adsb",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "node",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "forwardPorts": [5173, 4173, "feeder:80"],
+  "portsAttributes": {
+    "5173": { "label": "Vite dev", "onAutoForward": "openBrowser" },
+    "4173": { "label": "Vite preview" },
+    "feeder:80": { "label": "tar1090 (reference)" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "vitest.explorer",
+        "ms-playwright.playwright",
+        // GLSL highlighting for the custom WebGL aircraft layer
+        "slevesque.shader"
+      ]
+    }
+  }
+}

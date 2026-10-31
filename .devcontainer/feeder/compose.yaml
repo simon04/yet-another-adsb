@@ -1,0 +1,35 @@
+# App container + readsb/tar1090 (sdr-enthusiasts ultrafeeder) sidecar.
+# The sidecar has no SDR; it ingests Beast data from a real feeder on your LAN.
+# Configure via .devcontainer/feeder/.env (see .env.example).
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/typescript-node:26-trixie
+    command: sleep infinity
+    volumes:
+      - ../..:/workspaces/yet-another-adsb:cached
+    security_opt:
+      - label=disable
+    environment:
+      # Vite should proxy /data (and /tar1090) to this URL.
+      YAA_DATA_URL: http://feeder
+    depends_on:
+      - feeder
+
+  feeder:
+    image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder:latest
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-UTC}
+      LOGLEVEL: error
+      READSB_LAT: ${FEEDER_LAT:-}
+      READSB_LON: ${FEEDER_LON:-}
+      READSB_ALT: ${FEEDER_ALT:-}
+      # e.g. adsb,192.168.1.50,30005,beast_in  (empty = no data, UI still loads)
+      ULTRAFEEDER_CONFIG: ${ULTRAFEEDER_CONFIG:-}
+      UPDATE_TAR1090: "false"
+      # Adds registration/type to aircraft.json, like most real installs.
+      TAR1090_ENABLE_AC_DB: "true"
+    tmpfs:
+      - /run:exec,size=256M
+      - /tmp:size=128M
+      - /var/log:size=32M
