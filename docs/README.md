@@ -10,5 +10,6 @@ A modern, MapLibre-based web frontend for ADS-B/MLAT data, in the spirit of
 | [03-architecture.md](03-architecture.md) | Tech stack, data pipeline, rendering, deployment |
 | [04-ux-design.md](04-ux-design.md) | Layout, interactions, visual language |
 | [05-roadmap.md](05-roadmap.md) | Phases, milestones, validation, open questions |
+| [06-hosting.md](06-hosting.md) | Demo hosting: Cloudflare Tunnel, Caddy, systemd poller |
 
 Status: planning only, nothing implemented (2026-11-01).

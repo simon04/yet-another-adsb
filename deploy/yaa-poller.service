@@ -1,0 +1,31 @@
+[Unit]
+Description=yet-another-adsb: poll adsb.lol for the demo region
+Documentation=https://github.com/simon04/yet-another-adsb/blob/master/docs/06-hosting.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/lib/yaa/yaa-poller.sh
+EnvironmentFile=/etc/yaa/poller.env
+Restart=always
+RestartSec=10
+
+# Output lives in tmpfs (/run/yaa): no disk writes at 0.5 Hz, readable by caddy.
+DynamicUser=yes
+RuntimeDirectory=yaa
+RuntimeDirectoryMode=0755
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6
+MemoryMax=64M
+
+[Install]
+WantedBy=multi-user.target
