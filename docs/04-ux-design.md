@@ -18,6 +18,28 @@
 - Use motion only where it carries information: smooth aircraft movement, panel
   transitions under 200 ms, and honour `prefers-reduced-motion`.
 
+### Pride mode (opt-in theme)
+
+A rainbow variant of the theme. It is cheap because every altitude color
+already goes through one palette lookup.
+
+- **Altitude bands in flag colors.** The continuous ramp is replaced by the 6
+  pride flag stripes: red near the ground, violet at cruise. The colors still
+  encode altitude, just more coarsely. Exact values stay in the tooltip and
+  the detail panel.
+- **Shimmer (optional).** A slow hue shift along trails, done in the shader
+  (time uniform), with no per-frame CPU work. It is off under
+  `prefers-reduced-motion` and has its own toggle.
+- **UI accents.** A rainbow edge on panels, the selection ring and the logo.
+  The basemap and text stay neutral so contrast is unchanged.
+- **Flag variants.** Rainbow, progress, trans and bi are palette files, not code.
+- **Turning it on.** Settings → Theme, a `?pride` (or `?pride=trans`) URL
+  param for sharing, and a command palette entry. An optional "auto in June"
+  setting is off by default.
+- **Constraints.** It is never the default, because rainbow ramps are not
+  colorblind-safe and the default palette must be. The legend switches to the
+  band labels. Screenshots and OG images follow the active theme.
+
 ## Layout
 
 ### Desktop

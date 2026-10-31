@@ -38,6 +38,8 @@ behaviour that matches tar1090 on stale data.
 - [ ] Phase-of-flight detection.
 - [ ] Feeder dashboard (range polar plot, stats).
 - [ ] PWA install and share links with an OG image.
+- [ ] Pride mode theme (see `04-ux-design`): flag palettes as altitude bands,
+      shader shimmer, `?pride` URL param.
 
 ## Phase 3 — Aggregator and history
 
